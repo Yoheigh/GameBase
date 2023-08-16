@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Sequence = DG.Tweening.Sequence;
 
-public class UIBase : MonoBehaviour
+public abstract class UIBase : MonoBehaviour
 {
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
     protected bool _init = false;
@@ -20,10 +20,8 @@ public class UIBase : MonoBehaviour
             return false;
 
         _init = true;
-
         return true;
     }
-
     private void Start()
     {
         Init();
@@ -35,7 +33,7 @@ public class UIBase : MonoBehaviour
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
         _objects.Add(typeof(T), objects);
 
-        for(int i = 0; i < name.Length; i++)
+        for (int i = 0; i < names.Length; i++)
         {
             if (typeof(T) == typeof(GameObject))
                 objects[i] = Util.FindChild(gameObject, names[i], true);
@@ -44,7 +42,6 @@ public class UIBase : MonoBehaviour
 
             if (objects[i] == null)
                 Debug.Log($"Failed to bind({names[i]})");
-
         }
     }
 
@@ -54,10 +51,10 @@ public class UIBase : MonoBehaviour
     protected void BindButton(Type type) { Bind<Button>(type); }
     protected void BindToggle(Type type) { Bind<Toggle>(type); }
 
+
     protected T Get<T>(int idx) where T : UnityEngine.Object
     {
         UnityEngine.Object[] objects = null;
-
         if (_objects.TryGetValue(typeof(T), out objects) == false)
             return null;
 
@@ -65,17 +62,17 @@ public class UIBase : MonoBehaviour
     }
 
     protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
-    protected Image GetImage(int idx) { return Get<Image>(idx); }
     protected TMP_Text GetText(int idx) { return Get<TMP_Text>(idx); }
     protected Button GetButton(int idx) { return Get<Button>(idx); }
+    protected Image GetImage(int idx) { return Get<Image>(idx); }
     protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 
-    public static void BindEvent(GameObject go, Action action = null, Action<BaseEventData> dragAction = null
-        , Define.UIEvent type = Define.UIEvent.Click)       /* DefineÀÌ ¹¹ÁÒ? */
+
+    public static void BindEvent(GameObject go, Action action = null, Action<BaseEventData> dragAction = null, Define.UIEvent type = Define.UIEvent.Click)
     {
         UIEventHandler evt = Util.GetOrAddComponent<UIEventHandler>(go);
 
-        switch(type)
+        switch (type)
         {
             case Define.UIEvent.Click:
                 evt.OnClickHandler -= action;
@@ -108,9 +105,10 @@ public class UIBase : MonoBehaviour
         }
     }
 
-    public void PopupOpenAnimation(GameObject contentObject)
+    public void PopupOpenAnimation(GameObject contentObject) // ÆË¾÷ ¿ÀÇÂ ¿¬Ãâ
     {
-        contentObject.transform.localScale = new Vector3(0.8f, 0.8f, 1.0f);
-        contentObject.transform.DOScale(1.0f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);        /* DoTween Àß ¸ô¶ó¼­ °øºÎÇØ¾ßÇÔ */
+        contentObject.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+        contentObject.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);
     }
+
 }

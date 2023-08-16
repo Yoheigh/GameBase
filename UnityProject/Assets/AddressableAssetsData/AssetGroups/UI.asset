@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 10a52047cc09baf4396df23dce233b40
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 04885997a26420c4489f198c29bf50b8
+    m_Address: UIToast
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 29a67282709c23f41bfdde08dbd8b56c, type: 2}
   m_SchemaSet:

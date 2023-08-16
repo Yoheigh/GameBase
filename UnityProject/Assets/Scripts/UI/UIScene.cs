@@ -9,8 +9,7 @@ public class UIScene : UIBase
         if (base.Init() == false)
             return false;
 
-        //Managers.UI.SetCanvas(gameObject, false);
-
+        Managers.UI.SetCanvas(gameObject, false);
         return true;
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,13 @@ public class UIPopup : UIBase
         if (base.Init() == false)
             return false;
 
-        // Managers.UI.SetCanvas(gameObject, true);
-
+        Managers.UI.SetCanvas(gameObject, true);
         return true;
     }
 
     public virtual void ClosePopupUI()
     {
-        //Managers.UI.ClosePopupUI(this);
+        Managers.UI.ClosePopupUI(this);
     }
+
 }

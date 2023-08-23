@@ -12,4 +12,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f479c5d72d4856459e3edb8ac53b7c0, type: 3}
   m_Name: ItemData
   m_EditorClassIdentifier: 
-  sheets: []
+  sheets:
+  - name: Sheet1
+    list:
+    - index: 1
+      name: item_01
+      type: 1
+      stat_01: 1
+      stat_02: 1
+      stat_03: 1
+      stat_04: 1
+    - index: 2
+      name: item_02
+      type: 1
+      stat_01: 2
+      stat_02: 2
+      stat_03: 2
+      stat_04: 2
+    - index: 3
+      name: item_03
+      type: 1
+      stat_01: 3
+      stat_02: 3
+      stat_03: 3
+      stat_04: 3
+    - index: 4
+      name: item_04
+      type: 1
+      stat_01: 4
+      stat_02: 4
+      stat_03: 4
+      stat_04: 4
+    - index: 5
+      name: item_05
+      type: 1
+      stat_01: 5
+      stat_02: 5
+      stat_03: 5
+      stat_04: 5
+    - index: 6
+      name: item_06
+      type: 1
+      stat_01: 4
+      stat_02: 4
+      stat_03: 4
+      stat_04: 4
+    - index: 7
+      name: item_07
+      type: 1
+      stat_01: 3
+      stat_02: 3
+      stat_03: 3
+      stat_04: 3
+    - index: 8
+      name: item_08
+      type: 1
+      stat_01: 2
+      stat_02: 2
+      stat_03: 2
+      stat_04: 2
+    - index: 9
+      name: item_09
+      type: 1
+      stat_01: 1
+      stat_02: 1
+      stat_03: 1
+      stat_04: 1

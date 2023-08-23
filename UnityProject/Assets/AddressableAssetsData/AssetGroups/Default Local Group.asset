@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d3fb3a4fd1a073448b32580a42bf58c4
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 3e4262b2183c69e45928803c638c7c0c
+    m_Address: Assets/Excel/ItemData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 29a67282709c23f41bfdde08dbd8b56c, type: 2}
   m_SchemaSet:

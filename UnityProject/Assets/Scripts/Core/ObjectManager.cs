@@ -10,6 +10,8 @@ public class ObjectManager
 {
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
 
+    public HashSet<BoxController> Boxs { get; } = new HashSet<BoxController>();
+
     public Transform MonsterTransform
     {
         get
@@ -50,6 +52,14 @@ public class ObjectManager
             Monsters.Add(mc);
             return mc as T;
         }
+        else if(type == typeof(BoxController))
+        {
+            GameObject go = Managers.Resource.Instantiate("Box", pooling: true);
+            BoxController bc = go.GetOrAddComponent<BoxController>();
+            go.transform.position = position;
+            Boxs.Add(bc);
+            return bc as T;
+        }
 
 
         return null;
@@ -63,6 +73,13 @@ public class ObjectManager
         {
             Monsters.Remove(obj as MonsterController);
             Managers.Resource.Destroy(obj.gameObject);
+        }
+        else if(type == typeof(BoxController))
+        {
+            Boxs.Remove(obj as BoxController);
+            Managers.Resource.Destroy(obj.gameObject);
+
+            GameObject.Find("@Grid").GetOrAddComponent<GridController>().Remove(obj.gameObject);
         }
     }
 }

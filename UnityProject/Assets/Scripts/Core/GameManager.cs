@@ -1,39 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine;
 using Newtonsoft.Json;
 using static Define;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
     public GameData _gameData = new GameData();
 
     string _path;
     public void Init()
     {
-        _path = Application.persistentDataPath + "/SaveData.Json";
+        _path = Application.persistentDataPath + "/SaveData.json";
 
-        Debug.Log($"Save path : {_path}");
+        Debug.Log("Save Path : " + _path);
 
-        //if(LoadGame())
-        //{
-        //    return;
-        //}
+        if(LoadGame())
+           return;
 
         PlayerPrefs.SetInt("ISFIRST", 1);
     }
 
     public int UserLevel
     {
-        get { return _gameData.UserLevel; }
-        set { _gameData.UserLevel = value; }
+        get { return _gameData.UserLevel;}
+        set { _gameData.UserLevel = value;}
     }
 
     public string UserName
     {
-        get { return _gameData.UserName; }
+        get { return _gameData.UserName;}
         set { _gameData.UserName = value; }
     }
 
@@ -41,9 +39,9 @@ public class GameManager : MonoBehaviour
 
     public int Gold
     {
-        get { return _gameData.Gold; }
-        set
-        {
+        get { return _gameData.Gold;}
+        set 
+        { 
             _gameData.Gold = value;
             SaveGame();
             OnResourcesChanged?.Invoke();
@@ -58,6 +56,23 @@ public class GameManager : MonoBehaviour
             _gameData.Dia = value;
             SaveGame();
             OnResourcesChanged?.Invoke();
+        }
+    }
+
+    public bool BGMOn
+    {
+        get { return _gameData.BGMOn; }
+        set
+        {
+            _gameData.BGMOn = value;
+        }
+    }
+    public bool EffectSoundOn
+    {
+        get { return _gameData.EffectSoundOn; }
+        set
+        {
+            _gameData.EffectSoundOn = value;
         }
     }
 
@@ -80,19 +95,19 @@ public class GameManager : MonoBehaviour
         Item equip = new Item(key);
         Owenditem.Add(equip);
         ItemsChanged?.Invoke();
-
-        return equip;
+        
+        return equip;        
     }
 
-    public Dictionary<int, int> ItemDictionary
+    public Dictionary<int , int> ItemDictionary
     {
-        get { return _gameData.ItemDictionay; }
-        set { _gameData.ItemDictionay = value; }
+        get { return _gameData.ItemDictionary; }
+        set { _gameData.ItemDictionary = value; }
     }
 
     public Dictionary<ItemType, Item> Items
     {
-        get { return _gameData.Items;}
+        get { return _gameData.Items; }
         set
         {
             _gameData.Items = value;
@@ -100,18 +115,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EquipItem(ItemType type, Item equipment)
+    public void EquipItem(ItemType type , Item equipment)
     {
         if(Items.ContainsKey(type))
         {
             Items[type].IsEquipped = false;
-            Items.Remove(type);
+            Items.Remove(type); 
         }
 
         Items.Add(type, equipment);
         equipment.IsEquipped = true;
 
-        ItemsChanged?.Invoke();
+        ItemsChanged?.Invoke();  
     }
 
     public void UnEquipItem(Item equipment)
@@ -134,51 +149,53 @@ public class GameManager : MonoBehaviour
     {
         if(ItemDictionary.ContainsKey(id))
         {
-            ItemDictionary[id] += quantity;
+            ItemDictionary[id] += quantity;  
         }
         else
         {
-            ItemDictionary[id] = quantity;
+            ItemDictionary[id] = quantity;            
         }
         SaveGame();
     }
 
     public void RemoveMaterialItem(int id, int quantity)
     {
-        if(ItemDictionary.ContainsKey(id))
+        if( ItemDictionary.ContainsKey(id))
         {
             ItemDictionary[id] -= quantity;
             SaveGame();
-        }
+        }               
     }
+
 
     public void SaveGame()
     {
+        //GameData Class 를 json 으로 변환하여 저장 
         string jsonStr = JsonConvert.SerializeObject(_gameData);
         File.WriteAllText(_path, jsonStr);
-
-        Debug.Log("게임이 저장되었습니다.");
     }
 
-    public bool LoadGame()
+    public bool LoadGame() 
     {
         if(PlayerPrefs.GetInt("ISFIRST" , 1) == 0)
         {
             string path = Application.persistentDataPath + "/SaveData.json";
-            if (File.Exists(path))
+            if(File.Exists(path))
                 File.Delete(path);
 
             return false;
         }
 
-        if (File.Exists(_path) == false)
-            return false;
+        if(File.Exists(_path) == false)        
+            return false; ;
 
         string fileStr = File.ReadAllText(_path);
-        GameData data = JsonConvert.DeserializeObject<GameData>(fileStr);
+        GameData data = JsonConvert.DeserializeObject<GameData>(fileStr); 
 
-        if(data != null) { _gameData = data; }
+        if(data != null ) { _gameData = data; }
 
         return true;
+
     }
+
 }

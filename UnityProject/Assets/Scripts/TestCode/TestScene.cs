@@ -15,7 +15,7 @@ public class TestScene : MonoBehaviour
             Debug.Log("key : " + key + " Count : " + count + " totalCount : " + totalCount);
             if (count == totalCount)
             {
-                // Managers.Data.Init();
+                Managers.Data.Init();
                 Managers.Game.Init();
                 Init();
             }
